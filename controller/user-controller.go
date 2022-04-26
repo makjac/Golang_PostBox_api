@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/PBB-api/models"
@@ -27,4 +28,14 @@ func RegisterUser(ctx *gin.Context) {
 	}
 
 	//id := guuid.New().String()
+}
+
+func GetAllUsers() []models.User {
+	var User []models.User
+	_, err := dbConnect.QueryOne(&User, "SELECT * FROM users")
+	if err != nil {
+		log.Println("error")
+		return nil
+	}
+	return User
 }
