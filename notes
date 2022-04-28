@@ -1,0 +1,25 @@
+"register form"
+{
+    "account":
+    {
+        Login: String [isNotExist?, minLen = 6, maxLen = ],
+        Passwd: String,
+        repat passwd: string [isCorrect?],
+    }
+    "Contact":
+    {
+        numberPlan: string [minLen = 2, maxLen = 3],
+        phone: string [isCorrect? nim/macLen = 9],
+        Email: string [isCorrect?],
+    }
+    "adress":
+    {
+        street; string,
+        buldingNum: string
+        localNum: string,
+        ZipCode: string[min/maxLen =5],
+        city; string
+    }
+}
+
+
