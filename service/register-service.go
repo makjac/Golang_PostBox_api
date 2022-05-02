@@ -17,14 +17,14 @@ type registerService struct {
 	registerForm models.RegisterForm
 }
 
-func New() RegisterService {
-	return &registerService{}
-}
+// func New() RegisterService {
+// 	return &registerService{}
+// }
 
-func (service *registerService) Save(form models.RegisterForm) models.RegisterForm {
-	service.registerForm = append(service.registerForm, form)
-	return form
-}
+// func (service *registerService) Save(form models.RegisterForm) models.RegisterForm {
+// 	service.registerForm = append(service.registerForm, form)
+// 	return form
+// }
 
 func HashPasswd(passwd string) string {
 	bytePW := []byte(passwd)
