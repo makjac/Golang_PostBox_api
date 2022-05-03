@@ -6,7 +6,6 @@ import (
 
 	database "github.com/PBB-api/config"
 	"github.com/PBB-api/controller"
-	mails "github.com/PBB-api/mail"
 	"github.com/PBB-api/middlewares"
 	"github.com/PBB-api/routers"
 	"github.com/PBB-api/service"
@@ -24,8 +23,6 @@ var (
 func main() {
 	//Connect to the postgres batabase
 	database.SetupDB()
-
-	mails.VerficationMail("maks.jackowski@wp.pl", "makjac", "wp.pl")
 
 	//init router
 	server := gin.New()

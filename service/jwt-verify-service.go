@@ -3,49 +3,31 @@ package service
 import (
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
 
-type JWTService interface {
-	GenerateToken(name string, admin bool) string
-	ValidateToken(tokenStrring string) (*jwt.Token, error)
+type JWTVerifyService interface {
+	GenerateToken(email string) string
+	ValidateVerifyToken(jwtToken string) (*jwt.Token, error)
 }
 
-type jwtCustomClaims struct {
-	Name  string `json:"name"`
-	Admin bool   `json:"admin"`
+type jwtVerifyCustomClaims struct {
+	Email string `json:"email"`
 	jwt.StandardClaims
 }
 
-type jwtService struct {
+type jwtVerifyService struct {
 	secretKey string
 	issuer    string
 }
 
-func NewJWTService() JWTService {
-	return &jwtService{
-		secretKey: getSecretKey(),
-		issuer:    "makjac.pl",
-	}
-}
-
-func getSecretKey() string {
-	secret := os.Getenv("JWT_SECRET")
-	if secret == "" {
-		secret = "123bnm"
-	}
-	return secret
-}
-
-func (jwtSrv *jwtService) GenerateToken(username string, admin bool) string {
+func (jwtSrv *jwtVerifyService) GenerateToken(email string) string {
 
 	//custom climes
 	claims := &jwtCustomClaims{
-		username,
-		admin,
+		email,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
 			Issuer:    jwtSrv.issuer,
@@ -64,7 +46,7 @@ func (jwtSrv *jwtService) GenerateToken(username string, admin bool) string {
 	return t
 }
 
-func (jwtSrv *jwtService) ValidateToken(tokenString string) (*jwt.Token, error) {
+func (jwtSrv *jwtService) ValidateVerifyToken(tokenString string) (*jwt.Token, error) {
 	return jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method %v", token.Header["alg"])
