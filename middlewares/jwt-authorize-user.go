@@ -9,13 +9,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AuthorizeJWT() gin.HandlerFunc {
+func AuthorizeUserJWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		//var UUID = c.Param("uuid")
+
 		const BEARER_SCHEMA = "Bearer "
 		authHader := c.GetHeader("Authorization")
+		tokenString := authHader[len(BEARER_SCHEMA):]
 
-		if authHader == "" {
-			log.Println("no token")
+		if tokenString == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"status":  http.StatusUnauthorized,
 				"message": "you are not loged in",
@@ -23,8 +25,6 @@ func AuthorizeJWT() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-
-		tokenString := authHader[len(BEARER_SCHEMA):]
 
 		token, err := service.NewJWTService().ValidateToken(tokenString)
 
@@ -46,4 +46,9 @@ func AuthorizeJWT() gin.HandlerFunc {
 			return
 		}
 	}
+}
+
+func CheckUser(username string) bool {
+
+	return false
 }

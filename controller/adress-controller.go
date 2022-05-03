@@ -9,9 +9,8 @@ import (
 )
 
 func GetAdressID(c *gin.Context) {
-	var AdressID = "id = " + c.Param("id")
 	var Adress []models.Adress
-	err := dbConnect.Model(&Adress).Where(AdressID).Select()
+	err := dbConnect.Model(&Adress).Where("id = ?", c.Param("id")).Select()
 
 	if err != nil {
 		log.Printf("Error getting parcel history: %v", err)
