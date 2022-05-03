@@ -1,0 +1,5 @@
+.company.env
+.database.env
+.jwt.env
+.mail.env
+notes
