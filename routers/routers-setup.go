@@ -10,17 +10,16 @@ import (
 )
 
 var (
-	loginService service.LoginService = service.NewLoginService()
-	jwtService   service.JWTService   = service.NewJWTService()
+	//loginService service.LoginService = service.NewLoginService()
+	jwtService service.JWTService = service.NewJWTService()
 
-	loginController controller.LoginController = controller.NewLoginController(loginService, jwtService)
+	loginController controller.LoginController = controller.NewLoginController( /*loginService, */ jwtService)
 )
 
 func RtrSetup(router *gin.Engine) {
 
 	router.GET("/", welcome)
 	router.NoRoute(notFound)
-	router.GET("/users", controller.GetAllUsers)
 	PersonRouter(router)
 
 	apiRouters := router.Group("/api", middlewares.AuthorizeJWT())

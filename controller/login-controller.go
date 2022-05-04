@@ -11,15 +11,15 @@ type LoginController interface {
 }
 
 type loginController struct {
-	loginService service.LoginService
-	jWtService   service.JWTService
+	//loginService service.LoginService
+	jWtService service.JWTService
 }
 
-func NewLoginController(loginService service.LoginService,
+func NewLoginController( //loginService service.LoginService,
 	jWtService service.JWTService) LoginController {
 	return &loginController{
-		loginService: loginService,
-		jWtService:   jWtService,
+		//loginService: loginService,
+		jWtService: jWtService,
 	}
 }
 
@@ -29,9 +29,12 @@ func (controller *loginController) Login(ctx *gin.Context) string {
 	if err != nil {
 		return ""
 	}
-	isAuthenticated := controller.loginService.Login(credentials.Username, credentials.Passwd)
+
+	isAuthenticated, uuid, err := CheckUser(credentials.Username, credentials.Passwd)
+	//fmt.Println(err)
+	//isAuthenticated := controller.loginService.Login(credentials.Username, credentials.Passwd)
 	if isAuthenticated {
-		return controller.jWtService.GenerateToken(credentials.Username, "true")
+		return controller.jWtService.GenerateToken(credentials.Username, uuid)
 	}
 	return ""
 }
