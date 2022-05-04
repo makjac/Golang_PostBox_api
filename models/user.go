@@ -9,9 +9,9 @@ import (
 type User struct {
 	tableName struct{} `pg:"auth"`
 	//ID        string   `json:"id" pg:"id"`
-	Username string `json:"username" pg:"username" validate:"required, max=30"`
-	Passwd   string `json:"passwd" pg:"passwd" validate:"required, min=6, max=100"`
-	Uuid     string `json:"UUID" pg:"uuid"`
+	Username string `json:"username" pg:"username,notnull,unique" validate:"required, max=30"`
+	Passwd   string `json:"passwd" pg:"passwd,notnull" validate:"required, min=6, max=100"`
+	Uuid     string `json:"UUID" pg:"uuid,notnull,unique" validate:"uuid4"`
 }
 
 func (user *User) HashPasswd(password string) error {

@@ -13,4 +13,5 @@ require (
 	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/mailjet/mailjet-apiv3-go/v3 v3.2.0 // indirect
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
+	gopkg.in/go-playground/validator.v9 v9.31.0 // indirect
 )

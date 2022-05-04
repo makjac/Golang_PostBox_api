@@ -1,10 +1,21 @@
 package models
 
 type RegisterForm struct {
-	Login    string `json:"login" binding:"required"`
-	Passwd   string `json:"password" binding:"required"`
-	RePasswd string `json:"repasswd" binding:"required"`
-	PlanNum  string `json:"plannum" binding:"required,MinSize(2),MaxSize(3)"`
-	Phone    string `json:"phone" binding:"required"`
-	Email    string `json:"email" binding:"required"`
+	// auth table
+	Login         string `json:"login" validate:"required,unique"`
+	Passwd        string `json:"password" validate:"required,min=6,max=100"`
+	ConfirmPasswd string `json:"confirm_password" validate:"eqfield=Passwd,required"`
+	// end auth table / person table
+	Name    string `json:"name" validate:"required,excludesall=0x7C"`
+	Surname string `json:"surname" validate:"required,excludesall=0x7C"`
+	Phone   string `json:"phone" validate:"required,numeric,unique"`
+	Email   string `json:"email" validate:"required,email,unique"`
+	// end person table / adres table
+	Street     string `json:"street"`
+	Buldingnum string `json:"buldingnum"`
+	Localnum   string `json:"localnum"`
+	Zipcode    string `json:"zipcode" validate:"numeric"`
+	City       string `json:"city"`
+	Country    string `json:"country" validate:"country_code"`
+	// end adress table
 }
