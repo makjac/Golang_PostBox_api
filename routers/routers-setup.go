@@ -13,7 +13,7 @@ var (
 	//loginService service.LoginService = service.NewLoginService()
 	jwtService service.JWTService = service.NewJWTService()
 
-	loginController controller.LoginController = controller.NewLoginController( /*loginService, */ jwtService)
+	loginController controller.LoginController = controller.NewLoginController(jwtService)
 )
 
 func RtrSetup(router *gin.Engine) {

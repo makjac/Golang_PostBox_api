@@ -7,5 +7,4 @@ type RegisterForm struct {
 	PlanNum  string `json:"plannum" binding:"required,MinSize(2),MaxSize(3)"`
 	Phone    string `json:"phone" binding:"required"`
 	Email    string `json:"email" binding:"required"`
-	Role     string `json:"role" binding:"default=0"`
 }
