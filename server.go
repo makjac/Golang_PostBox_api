@@ -19,7 +19,7 @@ func main() {
 	server.Use(gin.Recovery(), middlewares.Logger())
 
 	// Route Handlers; endpoints
-	server.LoadHTMLGlob("templates/html/*.html")
+	server.LoadHTMLGlob("assets/templates/*.html")
 	routers.RtrSetup(server)
 
 	log.Fatal(server.Run(":8080"))

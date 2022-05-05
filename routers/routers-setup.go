@@ -51,15 +51,15 @@ func login(c *gin.Context) {
 }
 
 func welcome(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"staus":   202,
-		"message": "Welcome",
+	c.HTML(http.StatusOK, "welcome-page.html", gin.H{
+		"staus":   http.StatusOK,
+		"message": "oops... something is wrong",
 	})
 	return
 }
 
 func notFound(c *gin.Context) {
-	c.JSON(http.StatusNotFound, gin.H{
+	c.HTML(404, "404.html", gin.H{
 		"staus":   404,
 		"message": "oops... something is wrong",
 	})
