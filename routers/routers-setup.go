@@ -38,6 +38,11 @@ func RtrSetup(router *gin.Engine) {
 			ctx.JSON(http.StatusUnauthorized, nil)
 		}
 	})
+	router.GET("/activated", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "account-activated.html", gin.H{
+			"content": "This is an account-activated page...",
+		})
+	})
 
 }
 
