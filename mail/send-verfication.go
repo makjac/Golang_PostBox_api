@@ -27,7 +27,7 @@ func VerficationMail(to string, login string, href string) {
 				"href":  string(href),
 			},
 			TextPart: "Mail Box Hi {{var:login}}! Thanks for setting up the account ;) Click on the link below to activate your account:  {{var:href}} click me",
-			HTMLPart: "<center><h1>Mail Box</h1><h3>Hi {{var:login}}! Thanks for setting up the account ;)</h3><h3>Click on the link below to activate your account:</h3><a href=\"{{var:href}}\">click me</a></br></br></br></br>{{var:href}}</center>",
+			HTMLPart: "<center><h1>Mail Box</h1><h3>Hi {{var:login}}! Thanks for setting up the account ;)</h3><h3>Click on the link below to activate your account:</h3><a href=\"{{var:href}}\">click me</a></center>",
 		}}
 	messages := mailjet.MessagesV31{Info: messagesInfo}
 	res, err := mailjetClient.SendMailV31(&messages)

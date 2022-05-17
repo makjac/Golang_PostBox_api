@@ -59,8 +59,8 @@ func welcome(c *gin.Context) {
 }
 
 func notFound(c *gin.Context) {
-	c.HTML(404, "404.html", gin.H{
-		"staus":   404,
+	c.HTML(http.StatusNotFound, "404.html", gin.H{
+		"staus":   http.StatusNotFound,
 		"message": "oops... something is wrong",
 	})
 	return

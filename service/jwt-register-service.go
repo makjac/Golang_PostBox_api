@@ -10,7 +10,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type RegisterService interface {
+type JWTRegisterService interface {
 	GenerateToken(email string) (string, error)
 	ValidateToken(tokenString string) (*jwt.Token, error)
 }
@@ -25,7 +25,7 @@ type jwtRegisterService struct {
 	issuer    string
 }
 
-func NewJWTRegisterService() RegisterService {
+func NewJWTRegisterService() JWTRegisterService {
 	return &jwtRegisterService{
 		secretKey: getRegSecretKey(),
 		issuer:    "makjac.pl",

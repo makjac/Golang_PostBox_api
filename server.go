@@ -4,6 +4,7 @@ import (
 	"log"
 
 	database "github.com/PBB-api/config"
+	mails "github.com/PBB-api/mail"
 	"github.com/PBB-api/middlewares"
 	"github.com/PBB-api/routers"
 
@@ -14,12 +15,14 @@ func main() {
 	//Connect to the postgres batabase
 	database.SetupDB()
 
+	mails.VerficationMail("veslymass@gmail.com", "maks", "http://makjac.pl:8080/")
+
 	//init router
 	server := gin.New()
 	server.Use(gin.Recovery(), middlewares.Logger())
 
 	// Route Handlers; endpoints
-	server.LoadHTMLGlob("assets/templates/*.html")
+	server.LoadHTMLGlob("templates/*.html")
 	routers.RtrSetup(server)
 
 	log.Fatal(server.Run(":8080"))
