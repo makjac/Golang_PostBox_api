@@ -4,7 +4,7 @@ import (
 	"log"
 
 	database "github.com/PBB-api/config"
-	mails "github.com/PBB-api/mail"
+	//mails "github.com/PBB-api/mail"
 	"github.com/PBB-api/middlewares"
 	"github.com/PBB-api/routers"
 
@@ -15,7 +15,7 @@ func main() {
 	//Connect to the postgres batabase
 	database.SetupDB()
 
-	mails.VerficationMail("veslymass@gmail.com", "maks", "http://makjac.pl:8080/")
+	//śmails.VerficationMail("veslymass@gmail.com", "maks", "http://makjac.pl:8080/activated")
 
 	//init router
 	server := gin.New()

@@ -13,7 +13,9 @@ var (
 	//loginService service.LoginService = service.NewLoginService()
 	jwtService service.JWTService = service.NewJWTService()
 
-	loginController controller.LoginController = controller.NewLoginController(jwtService)
+	loginController    controller.LoginController    = controller.NewLoginController(jwtService)
+	jwtRegisterService service.JWTRegisterService    = service.NewJWTRegisterService()
+	registerController controller.RegisterController = controller.NewRegisterController(jwtRegisterService)
 )
 
 func RtrSetup(router *gin.Engine) {
@@ -24,9 +26,13 @@ func RtrSetup(router *gin.Engine) {
 
 	apiRouters := router.Group("/api", middlewares.AuthorizeJWT())
 	{
-		apiRouters.GET("/history/:id", controller.GetParcelHistory)
+		apiRouters.GET("/histośry/:id", controller.GetParcelHistory)
 		apiRouters.GET("/adress/:id", controller.GetAdressID)
 	}
+
+	router.POST("/register", func(ctx *gin.Context) {
+		ctx.JSON(200, registerController.Register(ctx))
+	})
 
 	router.POST("/login", func(ctx *gin.Context) {
 		token := loginController.Login(ctx)

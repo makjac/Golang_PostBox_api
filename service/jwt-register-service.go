@@ -45,7 +45,7 @@ func (jwtSrv *jwtRegisterService) GenerateToken(email string) (string, error) {
 	claims := &RegisterClaims{
 		email,
 		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Minute * 30).Unix(),
+			ExpiresAt: time.Now().Add(time.Minute * 15).Unix(),
 			Issuer:    jwtSrv.issuer,
 			IssuedAt:  time.Now().Unix(),
 		},
