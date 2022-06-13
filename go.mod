@@ -7,6 +7,7 @@ require (
 	github.com/casbin/casbin-pg-adapter v1.0.4 // indirect
 	github.com/casbin/casbin/v2 v2.44.3 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/fabiofenoglio/gin-cloudflare-access v0.2.1 // indirect
 	github.com/gin-gonic/gin v1.7.7 // indirect
 	github.com/go-pg/pg/v10 v10.10.6 // indirect
 	github.com/google/uuid v1.3.0 // indirect

@@ -26,4 +26,5 @@ func main() {
 	routers.RtrSetup(server)
 
 	log.Fatal(server.Run(":8080"))
+	//server.RunTLS(":8080", "server.pem", "server.key")
 }

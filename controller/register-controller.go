@@ -7,6 +7,7 @@ import (
 	"github.com/PBB-api/models"
 	"github.com/PBB-api/service"
 	"github.com/gin-gonic/gin"
+	mails "github.com/gin-gonic/mail"
 )
 
 type RegisterController interface {
@@ -21,6 +22,10 @@ func NewRegisterController(JWTregisterService service.JWTRegisterService) Regist
 	return &registerController{
 		JWTregisterService: JWTregisterService,
 	}
+}
+
+func buildSql(name string, surname string, phone string, email string, login string, passwd string) string {
+	return fmt.Sprintf("SELECT register_form('%s', '%s', '%s', '%s', '%s', '%s')", name, surname, phone, email, login, passwd)
 }
 
 func (controller *registerController) Register(ctx *gin.Context) error {
@@ -39,11 +44,22 @@ func (controller *registerController) Register(ctx *gin.Context) error {
 		return fmt.Errorf("Password hash error")
 	}
 
-	//err = dbConnect.Model(&Form).Select()
-	err = dbConnect.Model(nil).Column("register_form('Kokon', 'Kiszko', '123456789', 'kiki@op.pl', 'koki, 'iop098')").Select()
-	//_, err = dbConnect.DB().Query(nil, "register_form('Kokon', 'Kiszko', '123456789', 'kiki@op.pl', 'koki, 'iop098')")
-	//err = dbConnect.QueryRow(ctx, "SELECT register_form('Kokon', 'Kiszko', '123456789', 'kiki@op.pl', 'koki, 'iop098')")
-	//err = dbConnect.Model(nil).Select()
+	_, err = dbConnect.Exec(buildSql(Form.Name, Form.Surname, Form.Phone, Form.Email, Form.Login, Form.Passwd))
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  http.StatusBadRequest,
+			"message": "Opps... Something went wrong with the request",
+		})
+		return fmt.Errorf("Wrong request")
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"staus":   http.StatusOK,
+		"message": "register",
+	})
+
+	mails.VerficationMail()
 
 	return err
 }

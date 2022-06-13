@@ -30,7 +30,7 @@ func RtrSetup(router *gin.Engine) {
 		apiRouters.GET("/adress/:id", controller.GetAdressID)
 	}
 
-	router.POST("/register", func(ctx *gin.Context) {
+	router.GET("/register", func(ctx *gin.Context) {
 		ctx.JSON(200, registerController.Register(ctx))
 	})
 
