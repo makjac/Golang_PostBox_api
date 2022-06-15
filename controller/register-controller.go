@@ -59,10 +59,12 @@ func (controller *registerController) Register(ctx *gin.Context) error {
 	var token string
 	token, err = controller.JWTregisterService.GenerateToken(Form.Login)
 
-	if err != nil {
-	}
-
 	mails.VerficationMail(Form.Email, Form.Name, "http://makjac.pl:8080/activate/"+token)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status":  http.StatusOK,
+		"message": "registered",
+	})
 
 	return nil
 }

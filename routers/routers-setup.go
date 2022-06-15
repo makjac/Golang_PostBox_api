@@ -42,10 +42,16 @@ func RtrSetup(router *gin.Engine) {
 		token := loginController.Login(ctx)
 		if token != "" {
 			ctx.JSON(http.StatusOK, gin.H{
-				"token": token,
+				"staus":   http.StatusOK,
+				"message": "logged in",
+				"token":   token,
 			})
 		} else {
-			ctx.JSON(http.StatusUnauthorized, nil)
+			ctx.JSON(http.StatusUnauthorized, gin.H{
+				"staus":   http.StatusUnauthorized,
+				"message": "Invalid login or password",
+				"token":   "",
+			})
 		}
 	})
 	router.GET("/activated", func(c *gin.Context) {

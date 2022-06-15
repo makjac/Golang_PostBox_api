@@ -35,7 +35,7 @@ func FindUserByLogin(login string) (bool, error) {
 func CheckUser(username string, passwd string) (bool, string, error) {
 	var User models.User
 
-	err := dbConnect.Model(&User).Where("username = ?", username).Select()
+	err := dbConnect.Model(&User).Where("username = ?", username).Where("active = true").Select()
 	if err != nil {
 		log.Println(err)
 		return false, "", fmt.Errorf("Login or password is not correct")
