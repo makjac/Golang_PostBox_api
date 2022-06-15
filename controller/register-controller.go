@@ -57,7 +57,7 @@ func (controller *registerController) Register(ctx *gin.Context) error {
 	}
 
 	var token string
-	token, err = controller.JWTregisterService.GenerateToken(Form.Email)
+	token, err = controller.JWTregisterService.GenerateToken(Form.Login)
 
 	if err != nil {
 	}
@@ -83,9 +83,24 @@ func (controller *registerController) Activate(ctx *gin.Context) error {
 	if token.Valid {
 		claims := token.Claims.(jwt.MapClaims)
 
+		auth := models.Auth{
+			Username: claims["login"].(string),
+			Active:   true,
+		}
+
+		_, err := dbConnect.Model(&auth).Set("active = ?active").Where("username = ?username").Update()
+
+		if err != nil {
+			ctx.JSON(http.StatusUnauthorized, gin.H{
+				"status":  http.StatusConflict,
+				"message": "Unable to apdate the record",
+			})
+			return fmt.Errorf("Unable to apdate the record")
+		}
+
 		ctx.JSON(http.StatusOK, gin.H{
 			"staus":   http.StatusOK,
-			"message": claims["email"],
+			"message": "Active",
 		})
 	} else {
 		ctx.JSON(http.StatusUnauthorized, gin.H{

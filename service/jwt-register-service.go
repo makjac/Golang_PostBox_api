@@ -11,12 +11,12 @@ import (
 )
 
 type JWTRegisterService interface {
-	GenerateToken(email string) (string, error)
+	GenerateToken(login string) (string, error)
 	ValidateToken(tokenString string) (*jwt.Token, error)
 }
 
 type RegisterClaims struct {
-	Email string `json:"email"`
+	Login string `json:"login"`
 	jwt.StandardClaims
 }
 
@@ -40,10 +40,10 @@ func getRegSecretKey() string {
 	return secret
 }
 
-func (jwtSrv *jwtRegisterService) GenerateToken(email string) (string, error) {
+func (jwtSrv *jwtRegisterService) GenerateToken(login string) (string, error) {
 	//custom climes
 	claims := &RegisterClaims{
-		email,
+		login,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 150).Unix(),
 			Issuer:    jwtSrv.issuer,
