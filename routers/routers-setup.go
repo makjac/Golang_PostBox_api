@@ -34,6 +34,10 @@ func RtrSetup(router *gin.Engine) {
 		ctx.JSON(200, registerController.Register(ctx))
 	})
 
+	router.GET("/activate/:token", func(ctx *gin.Context) {
+		ctx.JSON(200, registerController.Activate(ctx))
+	})
+
 	router.POST("/login", func(ctx *gin.Context) {
 		token := loginController.Login(ctx)
 		if token != "" {

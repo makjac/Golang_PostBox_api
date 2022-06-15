@@ -4,14 +4,16 @@ import (
 	"fmt"
 	"net/http"
 
+	mails "github.com/PBB-api/mail"
 	"github.com/PBB-api/models"
 	"github.com/PBB-api/service"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	mails "github.com/gin-gonic/mail"
 )
 
 type RegisterController interface {
 	Register(ctx *gin.Context) error
+	Activate(ctx *gin.Context) error
 }
 
 type registerController struct {
@@ -54,12 +56,44 @@ func (controller *registerController) Register(ctx *gin.Context) error {
 		return fmt.Errorf("Wrong request")
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"staus":   http.StatusOK,
-		"message": "register",
-	})
+	var token string
+	token, err = controller.JWTregisterService.GenerateToken(Form.Email)
 
-	mails.VerficationMail()
+	if err != nil {
+	}
 
-	return err
+	mails.VerficationMail(Form.Email, Form.Name, "http://makjac.pl:8080/activate/"+token)
+
+	return nil
+}
+
+func (controller *registerController) Activate(ctx *gin.Context) error {
+	var tokenString = ctx.Param("token")
+
+	if tokenString == "" {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"status":  http.StatusUnauthorized,
+			"message": "Wrong token",
+		})
+		return fmt.Errorf("Wrong token")
+	}
+
+	token, _ := service.NewJWTRegisterService().ValidateToken(tokenString)
+
+	if token.Valid {
+		claims := token.Claims.(jwt.MapClaims)
+
+		ctx.JSON(http.StatusOK, gin.H{
+			"staus":   http.StatusOK,
+			"message": claims["email"],
+		})
+	} else {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"status":  http.StatusUnauthorized,
+			"message": "Wrong token",
+		})
+		return fmt.Errorf("Wrong token")
+	}
+
+	return nil
 }
