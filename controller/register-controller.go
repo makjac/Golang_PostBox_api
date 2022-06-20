@@ -100,7 +100,7 @@ func (controller *registerController) Activate(ctx *gin.Context) error {
 			return fmt.Errorf("Unable to apdate the record")
 		}
 
-		ctx.JSON(http.StatusOK, gin.H{
+		ctx.HTML(http.StatusOK, "account-activated.html", gin.H{
 			"staus":   http.StatusOK,
 			"message": "Active",
 		})

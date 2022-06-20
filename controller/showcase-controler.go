@@ -8,16 +8,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetParcelHistory(c *gin.Context) {
+//GET All person table records
+func GetShowcase(c *gin.Context) {
 	uuid, _ := c.Get("uuid")
 
-	log.Println("Claims[Name]: ", uuid)
-	var historyID = "id = " + c.Param("id")
-	var Parcel_history []models.Parcel_history
-	err := dbConnect.Model(&Parcel_history).Where(historyID).Select()
+	var Showcase []models.Showcase
+	err := dbConnect.Model(&Showcase).Where("user_uuid = ?", uuid).Select()
 
 	if err != nil {
-		log.Printf("Error getting parcel history: %v", err)
+		log.Printf("Error to getting persons: %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"status":  http.StatusInternalServerError,
 			"message": "Opps... Something went wrong",
@@ -27,8 +26,8 @@ func GetParcelHistory(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"staus":   http.StatusOK,
-		"message": "History successfully",
-		"data":    Parcel_history,
+		"message": "Showcase",
+		"data":    Showcase,
 	})
 	return
 }

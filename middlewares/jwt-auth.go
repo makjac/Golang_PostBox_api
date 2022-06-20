@@ -30,7 +30,8 @@ func AuthorizeJWT() gin.HandlerFunc {
 
 		if token.Valid {
 			claims := token.Claims.(jwt.MapClaims)
-			log.Println("Claims[Name]: ", claims["name"])
+			c.Set("uuid", claims["uuid"])
+			c.Next()
 		} else {
 			log.Println(err)
 			c.JSON(http.StatusUnauthorized, gin.H{
