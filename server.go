@@ -2,9 +2,10 @@ package main
 
 import (
 	"log"
+	"time"
 
 	database "github.com/PBB-api/config"
-	//mails "github.com/PBB-api/mail"
+	"github.com/PBB-api/cors"
 	"github.com/PBB-api/middlewares"
 	"github.com/PBB-api/routers"
 
@@ -15,16 +16,24 @@ func main() {
 	//Connect to the postgres batabase
 	database.SetupDB()
 
-	//śmails.VerficationMail("veslymass@gmail.com", "maks", "http://makjac.pl:8080/activated")
-
 	//init router
 	server := gin.New()
 	server.Use(gin.Recovery(), middlewares.Logger())
 
 	// Route Handlers; endpoints
 	server.LoadHTMLGlob("templates/*.html")
+
+	server.Use(cors.Middleware(cors.Config{
+		Origins:         "*",
+		Methods:         "GET, PUT, POST, DELETE",
+		RequestHeaders:  "Origin, Authorization, Content-Type",
+		ExposedHeaders:  "",
+		MaxAge:          50 * time.Second,
+		Credentials:     false,
+		ValidateHeaders: false,
+	}))
+
 	routers.RtrSetup(server)
 
 	log.Fatal(server.Run(":8080"))
-	//server.RunTLS(":8080", "server.pem", "server.key")
 }
