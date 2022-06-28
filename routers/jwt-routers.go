@@ -12,5 +12,6 @@ func jwtRouters(router *gin.Engine) {
 		jwtRouters.GET("/history/:id", controller.GetParcelHistory)
 		jwtRouters.GET("/adress/:id", controller.GetAdressID)
 		jwtRouters.GET("/showcase", controller.GetShowcase)
+		jwtRouters.POST("/showcase/update", controller.UpdateShowcase)
 	}
 }
