@@ -9,9 +9,6 @@ import (
 )
 
 func GetParcelHistory(c *gin.Context) {
-	uuid, _ := c.Get("uuid")
-
-	log.Println("Claims[Name]: ", uuid)
 	var historyID = "id = " + c.Param("id")
 	var Parcel_history []models.Parcel_history
 	err := dbConnect.Model(&Parcel_history).Where(historyID).Select()

@@ -13,5 +13,6 @@ func jwtRouters(router *gin.Engine) {
 		jwtRouters.GET("/adress/:id", controller.GetAdressID)
 		jwtRouters.GET("/showcase", controller.GetShowcase)
 		jwtRouters.POST("/showcase/update", controller.UpdateShowcase)
+		jwtRouters.GET("/parcels/send", controller.SenderParcels)
 	}
 }
