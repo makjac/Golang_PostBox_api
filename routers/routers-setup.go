@@ -12,6 +12,7 @@ func RtrSetup(router *gin.Engine) {
 	router.NoRoute(notFound)
 	PersonRouter(router)
 	PostmachineRouter(router)
+	ParcelDestinationRouter(router)
 	jwtRouters(router)
 	authRouters(router)
 
