@@ -15,6 +15,7 @@ func RtrSetup(router *gin.Engine) {
 	ParcelDestinationRouter(router)
 	jwtRouters(router)
 	authRouters(router)
+	HistoryRouter(router)
 
 }
 

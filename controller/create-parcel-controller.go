@@ -17,14 +17,14 @@ func buildcreateParcelSql(receiver_username string, receiver_pm_id string, sende
 }
 
 func CreateParcel(ctx *gin.Context) {
-	uuidHeader := ctx.GetHeader("sender_uuid")
+	sender_usernameHader := ctx.GetHeader("sender_username")
 	receiver_usernameHader := ctx.GetHeader("receiver_username")
 	receiver_pm_idHader := ctx.GetHeader("receiver_pm_id")
 	sender_pm_idHader := ctx.GetHeader("sender_pm_id")
 	parcel_typeHader := ctx.GetHeader("parcel_type")
 	parcel_nameHader := ctx.GetHeader("parcel_name")
 
-	_, err := dbConnect.Exec(buildcreateParcelSql(receiver_usernameHader, receiver_pm_idHader, uuidHeader, sender_pm_idHader, parcel_typeHader, parcel_nameHader))
+	_, err := dbConnect.Exec(buildcreateParcelSql(receiver_usernameHader, receiver_pm_idHader, sender_usernameHader, sender_pm_idHader, parcel_typeHader, parcel_nameHader))
 
 	if err != nil {
 		log.Printf("Error to getting persons: %v", err)

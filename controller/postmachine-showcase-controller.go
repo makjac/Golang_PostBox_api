@@ -24,7 +24,7 @@ func PostmachineShowcase(c *gin.Context) {
 			return
 		}
 	} else {
-		err := dbConnect.Model(&postmachineShowcase).Where("mp_city = ?", cityHader).Select()
+		err := dbConnect.Model(&postmachineShowcase).Where("mp_city = ?", cityHader).Where("box_type = mała   ").Select()
 		if err != nil {
 			log.Printf("Error to getting post machine: %v", err)
 			c.JSON(http.StatusBadRequest, gin.H{
