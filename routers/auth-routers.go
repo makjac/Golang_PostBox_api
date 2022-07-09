@@ -18,7 +18,7 @@ var (
 )
 
 func authRouters(router *gin.Engine) {
-	router.GET("/register", func(ctx *gin.Context) {
+	router.POST("/register", func(ctx *gin.Context) {
 		ctx.JSON(200, registerController.Register(ctx))
 	})
 
