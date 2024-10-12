@@ -4,22 +4,24 @@
 
 ### Topic
 
-This is a project for an imaginary courier company. PostBox Is a company that provides courier services using parcel machines. The idea is based on the Inpost company. 
+This project is for a fictional courier company called *PostBox*, which offers delivery services through automated parcel machines. The concept is inspired by the real-world *InPost* company.
 
-The application was created just for customers. It is supposed to allow him:
-* to set up/log in an account, 
-* order a package, 
-* view the list of incoming/shipped packages, 
-* see the history of selected packages, 
-* view/edit his profile.
+The application is designed specifically for customers, enabling them to:
 
-## architekture
+- Create or log into their account,
+- Order packages,
+- View a list of incoming and shipped packages,
+- Track the history of selected packages,
+- View and edit user profile.
 
-For this purpose, I created:
-* database in Postgres
-* api in Golang using gin-gonic and go-pg packages
-* user interface using Dart language and Flutter framework.
+### Architecture
 
-The application server was hosted on Google Cloud Platform, sending emails was done using Mailjet platform
+The project consists of the following components:
+
+- A PostgreSQL database for data storage,
+- An API built in Golang, using the Gin-Gonic framework and Go-PG package,
+- A user interface developed with Dart and the Flutter framework.
+
+The application server is hosted on Google Cloud Platform, and email services are managed through the Mailjet platform.
 
 ![architekture](https://i.imgur.com/pQgaNFm.png)
